@@ -1,7 +1,7 @@
-This is a sample code for the Google IO 2014 codelab 
+This is the sample code for the Polymer Summit 2015 codelab 
 "Polymer: Build a Material Design Mobile Web App with Paper Elements".
 
-Codelab instructions: http://io2014codelabs.appspot.com/static/codelabs/polymer-build-mobile/
+Codelab instructions: http://code-labs.io/polymer-build-mobile
 
 ***
 This code sample uses [Bower](http://bower.io/) to manage code dependencies. Plese run 
@@ -17,6 +17,6 @@ E.g. if you have python (2.x) installed, run
 
     $ python -m SimpleHTTPServer
 
-(or another server of your choice) to view the sample in the browser.
+(or another web server of your choice) to view the sample in your browser.
 *** 
 
