@@ -35,6 +35,37 @@
           <div id="status">Ready</div>
         </div>
       </paper-toolbar>
+  
+      <div id="file-splitter" horizontal layout>
+    
+        <div class="panel-left">
+          <paper-toolbar><div horizontal layout>Queue</div></paper-toolbar>
+          <ul class="filelist">
+            <template repeat="{{file in uploadList}}">
+              <li>
+              <strong>{{file.name}}</strong> {{file.type}}
+              </li>
+            </template>
+          </ul>
+        </div>
+      
+        <div class="panel-right">
+          <paper-toolbar><div horizontal layout>Uploaded</div></paper-toolbar>
+      
+          <ul class="filelist">
+            <template repeat="{{file in uploadedList}}">
+              <li>
+              <img src="{{file.iconLink}}"> 
+              <strong>{{file.title}}</strong>
+              <p>
+              <a href="{{file.selfLink}}">Drive URL</a>
+              <a href="{{file.webContentLink}}">Web URL</a>
+              </p>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
     </div>
 
   </template>

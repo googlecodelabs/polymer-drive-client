@@ -32,6 +32,13 @@ body {
   font-size: 1em;
 }
 
+.panel-right { float: right;  width: 48%; border-style: solid; border-width: 1px;} 
+.panel-left  { float: left; width: 48%; border-style: solid; border-width: 1px;}
+
+.panel core-toolbar {
+  background: rgb(68, 68, 68);
+}
+
 #files {
   display: block;
   margin: 0 auto;;
