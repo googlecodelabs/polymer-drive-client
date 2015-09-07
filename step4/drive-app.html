@@ -4,7 +4,15 @@
   <style></style>
   <template>
 
-    I’m a shiny new element.
+    <div id="loggedin">
+      <div id="dropzone" on-tap="{{tapSelect}}" 
+        on-dragover="{{handleDragOver}}" 
+        on-drop="{{handleFileSelect}}">
+          Drag files to upload
+          <input type="file" id="files" name="files[]" 
+            on-change="{{handleFilePick}}" multiple>
+      </div>
+    </div>
 
   </template>
   <script>
