@@ -1,0 +1,69 @@
+/*
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+*/
+
+body {
+  background: #fafafa;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+#dropzone {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 90px 10px;
+  text-align: center;
+  font: 20pt bold 'Helvetica';
+  color: #bbb;
+  background: white;
+}
+
+#dropzone-bar {
+  border-bottom:1px solid white;
+  background: rgb(229, 229, 229);
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 8px;
+  font-size: 1em;
+}
+
+.panel-right { float: right;  width: 48%; border-style: solid; border-width: 1px;} 
+.panel-left  { float: left; width: 48%; border-style: solid; border-width: 1px;}
+
+.panel core-toolbar {
+  background: rgb(68, 68, 68);
+}
+
+#files {
+  display: block;
+  margin: 0 auto;;
+}
+
+#files::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+#files::before {
+  content: 'or click to select files';
+  background: white;
+  padding: 5px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-size: 16pt;
+  margin: 0 auto;
+}
+
+#files:hover::before {
+  border-color: black;
+}
+
+#files:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
