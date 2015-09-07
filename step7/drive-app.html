@@ -1,0 +1,164 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/google-signin/google-signin.html">
+<script src="bower_components/cors-upload-sample/upload.js"></script>
+
+<dom-module id="drive-app">
+  <style></style>
+  <template>
+
+    <google-signin>
+      on-google-signin-success="{{signedIn}}"
+      on-google-signed-out="{{signedOut}}"
+      clientId="YOUR_CLIENT_ID_GOES_HERE"
+      scopes="https://www.googleapis.com/auth/drive" >
+    </google-signin>
+
+    <div id="loggedin">
+      <div id="dropzone" on-tap="{{tapSelect}}" 
+        on-dragover="{{handleDragOver}}" 
+        on-drop="{{handleFileSelect}}">
+          Drag files to upload
+          <input type="file" id="files" name="files[]" 
+            on-change="{{handleFilePick}}" multiple>
+      </div>
+      <paper-toolbar layout horizontal id="dropzone-bar">
+        <div>
+          <span>Auto-upload</span>
+          <paper-toggle-button 
+          onCaption="On" 
+          offCaption="Off" 
+          value="{{autoUpload}}">
+          </paper-toggle-button>
+        </div>
+      
+        <div>
+          <button id="upload"
+          on-click="{{manualUpload}}" 
+          style="display:{{ autoUpload ? 'none' : 'inline-block' }}">
+            Upload files
+          </button>
+        </div>
+      
+        <div flex></div>
+        <div>
+          <div id="status">Ready</div>
+        </div>
+      </paper-toolbar>
+  
+      <div id="file-splitter" horizontal layout>
+    
+        <div class="panel-left">
+          <paper-toolbar><div horizontal layout>Queue</div></paper-toolbar>
+          <ul class="filelist">
+            <template repeat="{{file in uploadList}}">
+              <li>
+              <strong>{{file.name}}</strong> {{file.type}}
+              </li>
+            </template>
+          </ul>
+        </div>
+      
+        <div class="panel-right">
+          <paper-toolbar><div horizontal layout>Uploaded</div></paper-toolbar>
+      
+          <ul class="filelist">
+            <template repeat="{{file in uploadedList}}">
+              <li>
+              <img src="{{file.iconLink}}"> 
+              <strong>{{file.title}}</strong>
+              <p>
+              <a href="{{file.selfLink}}">Drive URL</a>
+              <a href="{{file.webContentLink}}">Web URL</a>
+              </p>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer(‘drive-app’, {
+      uploadList: [],    // selected files
+      uploadedList: [],  // successfully uploaded files
+      autoUpload: false, // automatically upload?
+
+      signedIn: function (e) {
+        this.accessToken = e.detail.result.access_token;
+        this.$.loggedin.style.display = 'block';
+      },
+
+      signedOut: function (e) {
+        this.$.loggedin.style.display = 'hidden';
+      },
+
+      tapSelect: function (e) {
+          this.$.files.click();
+      },
+
+      handleDragOver: function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'copy';
+      },
+
+      handleFilePick: function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+          this.selectFiles(e.target.files);
+      },
+      
+      handleFileSelect: function (e) {
+          e.stopPropagation();
+          e.preventDefault();
+          this.selectFiles(e.dataTransfer.files);
+      },
+      
+      clearUploadList: function () {
+          this.uploadedList = [];
+          this.uploadList = [];
+      },
+
+      uploadFiles: function (files) {
+        var uploadedList = this.uploadedList;
+        this.$.status.innerHTML = 'Uploading...';
+
+        var f;
+        for(var i=0; f = files[i]; i++) {
+          var uploader = new MediaUploader({
+            file: f,
+            token: this.accessToken,
+            onComplete: function (data) {
+              uploadedList.push(JSON.parse(data));
+              this.$.status.innerHTML = 'Upload successful';
+              this.uploadList = [];
+            }.bind(this)
+          });
+          uploader.upload();
+        }
+      },
+
+      manualUpload: function () { 
+        this.uploadFiles(this.queue); 
+      },
+
+      selectFiles: function (files) {
+        this.queue = files;
+        this.$.status.textContent = 'Files selected';
+
+        var f;
+        for(var i=0; f = files[i]; i++) {
+          this.uploadList.push(f);
+        }
+  
+        if(this.autoUpload) {
+          this.uploadFiles(files);
+        }
+      }
+    });
+  </script>
+  <script>
+    Polymer({ is: 'drive-app' });
+  </script>
+</dom-module>
