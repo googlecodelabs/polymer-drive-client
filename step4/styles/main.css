@@ -12,3 +12,43 @@ body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
 }
+
+#dropzone {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 90px 10px;
+  text-align: center;
+  font: 20pt bold 'Helvetica';
+  color: #bbb;
+  background: white;
+}
+
+#files {
+  display: block;
+  margin: 0 auto;;
+}
+
+#files::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+#files::before {
+  content: 'or click to select files';
+  background: white;
+  padding: 5px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-size: 16pt;
+  margin: 0 auto;
+}
+
+#files:hover::before {
+  border-color: black;
+}
+
+#files:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
